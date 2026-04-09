@@ -21,7 +21,7 @@ input("Pressione Enter para continuar...")
 os.system('cls')
 
 
-missao_combate_goblins = MissaoCombate("Extermine os globins", "Globins são perigosos. Elimine todos.", 30, 10, "Goblin",StatusMissao.PENDENTE)
+missao_combate_goblins = MissaoCombate("Extermine os globins", "Globins são perigosos. Elimine todos.", 30, int(10), "Goblin",StatusMissao.PENDENTE)
 missao_combate_goblins.iniciar_missao()
 missao_combate_goblins.concluir_missao()
 missao_combate_goblins.exibir_informacoes()

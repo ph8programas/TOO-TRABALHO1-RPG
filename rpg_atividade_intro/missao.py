@@ -111,6 +111,7 @@ class Missao:
 
     def exibir_informacoes(self):
         print("\n")
+        print(f"Missão [{self.__class__.__name__}]")
         print(f"Missão: {self.nome}")
         print(f"Descrição: {self.descricao}")
         print(f"Recompensa: {self.recompensa} XP")
@@ -131,39 +132,38 @@ class Missao:
 
 
 class MissaoCombate(Missao):
-    def __init__(self, nome, descricao, recompensa, inimigos_a_derrotar : int, inimigo : str,status):
+    def __init__(self, nome, descricao, recompensa, inimigos_a_derrotar: int, inimigo: str, status):
         super().__init__(nome, descricao, recompensa, status)
-        self.inimigos_a_derrotar = None
-        self.inimigo = None
+        self.inimigos_a_derrotar = inimigos_a_derrotar
+        self.inimigo = inimigo 
 
     @property
     def inimigos_a_derrotar(self):
         return self.__inimigos_a_derrotar
     
     @inimigos_a_derrotar.setter
-    def inimigos_a_derrotar(self, inimigos_a_derrotar):
-        if not isinstance(inimigos_a_derrotar, (int)):
+    def inimigos_a_derrotar(self, valor):
+        if not isinstance(valor, int):
             raise ValueError("Deve ser um valor numérico")
-        if inimigos_a_derrotar < 1:
+        if valor < 1:
             raise ValueError("Deve ser um valor positivo")
-        self.__inimigos_a_derrotar = inimigos_a_derrotar
+        self.__inimigos_a_derrotar = valor
 
     @property
     def inimigo(self):
         return self.__inimigo
     
     @inimigo.setter
-    def inimigo(self, inimigo):
-        if isinstance(inimigo, (str)):
-                self.__inimigo = inimigo.strip().title()    
+    def inimigo(self, valor):
+        if isinstance(valor, str):
+            self.__inimigo = valor.strip().title()    
         else: 
             raise ValueError("Deve ser um valor do tipo string")
 
-
     def exibir_informacoes(self):
         super().exibir_informacoes()
-        print(f"Inimigos a derrotar: {self.inimigo}")
         print(f"Inimigo: {self.inimigo}")
+        print(f"Quantidade a derrotar: {self.inimigos_a_derrotar}")
 
 class MissaoColeta(Missao):
     def __init__(self, nome, descricao, recompensa, item_necessario:str, quantidade_item : int, status):
