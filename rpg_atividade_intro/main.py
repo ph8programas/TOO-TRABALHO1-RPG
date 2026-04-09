@@ -30,7 +30,7 @@ print("\n\n----------------------------------\n\n")
 input("Pressione Enter para continuar...")
 os.system('cls')
 
-missao_coleta_ervas = MissaoColeta("Colete Ervas para o Médico", "Seu companheiro foi ferido, o médico precisa de ervas medicianais para curá-lo.", 0,"Ervas Medicinais",10,StatusMissao.PENDENTE)
+missao_coleta_ervas = MissaoColeta("Colete Ervas para o Médico", "Seu companheiro foi ferido, o médico precisa de ervas medicianais para curá-lo.", 20,"Ervas Medicinais",10,StatusMissao.PENDENTE)
 missao_coleta_ervas.iniciar_missao()
 missao_coleta_ervas.concluir_missao()
 missao_coleta_ervas.exibir_informacoes()

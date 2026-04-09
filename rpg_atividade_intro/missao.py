@@ -133,19 +133,67 @@ class Missao:
 class MissaoCombate(Missao):
     def __init__(self, nome, descricao, recompensa, inimigos_a_derrotar : int, inimigo : str,status):
         super().__init__(nome, descricao, recompensa, status)
-        self.inimigos_a_derrotar = inimigos_a_derrotar
-        self.inimigo = inimigo
+        self.__inimigos_a_derrotar = None
+        self.__inimigo = None
+
+    @property
+    def inimigos_a_derrotar(self):
+        return self.__inimigos_a_derrotar
+    
+    @inimigos_a_derrotar.setter
+    def inimigos_a_derrotar(self, inimigos_a_derrotar):
+        if not isinstance(inimigos_a_derrotar, (int)):
+            raise ValueError("Deve ser um valor numérico")
+        if inimigos_a_derrotar < 1:
+            raise ValueError("Deve ser um valor positivo")
+        self.__inimigos_a_derrotar = inimigos_a_derrotar
+
+    @property
+    def inimigo(self):
+        return self.__inimigo
+    
+    @inimigo.setter
+    def inimigo(self, inimigo):
+        if isinstance(inimigo, (str)):
+                self.__inimigo = inimigo.strip().title()    
+        else: 
+            raise ValueError("Deve ser um valor do tipo string")
+
 
     def exibir_informacoes(self):
         super().exibir_informacoes()
-        print(f"Inimigos a derrotar: {self.inimigos_a_derrotar}")
+        print(f"Inimigos a derrotar: {self.inimigo}")
         print(f"Inimigo: {self.inimigo}")
 
 class MissaoColeta(Missao):
     def __init__(self, nome, descricao, recompensa, item_necessario : str, quantidade_item : int, status):
         super().__init__(nome, descricao, recompensa, status)
-        self.__item_necessario = item_necessario
+        self.__item_necessario = None
+        self.__quantidade_item = None
+
+    @property
+    def quantidade_item(self):
+        return self.__quantidade_item
+    
+    @quantidade_item.setter
+    def quantidade_item(self, quantidade_item):
+        if not isinstance(quantidade_item, (int)):
+            raise ValueError("Deve ser um valor numérico")
+        if quantidade_item < 1:
+            raise ValueError("Deve ser um valor positivo")
         self.__quantidade_item = quantidade_item
+
+    @property
+    def item_necessario(self):
+        return self.__item_necessario
+    
+    @item_necessario.setter
+    def __item_necessario(self, __item_necessario):
+        if isinstance(__item_necessario, (str)):
+                self.__recompensa = __item_necessario.strip().title()    
+        else: 
+            raise ValueError("Deve ser um valor do tipo string")
+
 
     def exibir_informacoes(self):
         super().exibir_informacoes()
@@ -153,14 +201,52 @@ class MissaoColeta(Missao):
         print(f"Quantidade necessária: {self.__quantidade_item}")
 
 class MissaoExploracao(Missao):
-    def __init__(self, nome, descricao, recompensa, local : str, distancia : float ,tempo_limite : float, status):
+    def __init__(self, nome, descricao, recompensa, local: str, distancia: float, tempo_limite: float, status):
         super().__init__(nome, descricao, recompensa, status)
-        self.__local = local
+        # Chamando os setters para validação imediata
+        self.local = local
+        self.distancia = distancia
+        self.tempo_limite = tempo_limite
+
+    # Propriedade: local
+    @property
+    def local(self):
+        return self.__local
+    
+    @local.setter
+    def local(self, local):
+        if not isinstance(local, str):
+            raise ValueError("O local deve ser uma string")
+        self.__local = local.strip().title()
+
+    # Propriedade: distancia
+    @property
+    def distancia(self):
+        return self.__distancia
+    
+    @distancia.setter
+    def distancia(self, distancia):
+        if not isinstance(distancia, (int, float)):
+            raise ValueError("A distância deve ser um valor numérico")
+        if distancia < 0:
+            raise ValueError("A distância não pode ser negativa")
         self.__distancia = distancia
+
+    # Propriedade: tempo_limite
+    @property
+    def tempo_limite(self):
+        return self.__tempo_limite
+    
+    @tempo_limite.setter
+    def tempo_limite(self, tempo_limite):
+        if not isinstance(tempo_limite, (int, float)):
+            raise ValueError("O tempo limite deve ser um valor numérico")
+        if tempo_limite <= 0:
+            raise ValueError("O tempo limite deve ser maior que zero")
         self.__tempo_limite = tempo_limite
 
     def exibir_informacoes(self):
         super().exibir_informacoes()
-        print(f"Localização a explorar: {self.__local}")
-        print(f"Distância a percorrer: {self.__distancia} km")
-        print(f"Tempo limite: {self.__tempo_limite} horas")
+        print(f"Localização a explorar: {self.local}")
+        print(f"Distância a percorrer: {self.distancia} km")
+        print(f"Tempo limite: {self.tempo_limite} horas")
