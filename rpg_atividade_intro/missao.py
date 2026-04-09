@@ -133,8 +133,8 @@ class Missao:
 class MissaoCombate(Missao):
     def __init__(self, nome, descricao, recompensa, inimigos_a_derrotar : int, inimigo : str,status):
         super().__init__(nome, descricao, recompensa, status)
-        self.__inimigos_a_derrotar = None
-        self.__inimigo = None
+        self.inimigos_a_derrotar = None
+        self.inimigo = None
 
     @property
     def inimigos_a_derrotar(self):
@@ -166,10 +166,10 @@ class MissaoCombate(Missao):
         print(f"Inimigo: {self.inimigo}")
 
 class MissaoColeta(Missao):
-    def __init__(self, nome, descricao, recompensa, item_necessario : str, quantidade_item : int, status):
+    def __init__(self, nome, descricao, recompensa, item_necessario:str, quantidade_item : int, status):
         super().__init__(nome, descricao, recompensa, status)
-        self.__item_necessario = None
-        self.__quantidade_item = None
+        self.item_necessario = item_necessario
+        self.quantidade_item = quantidade_item
 
     @property
     def quantidade_item(self):
@@ -188,9 +188,9 @@ class MissaoColeta(Missao):
         return self.__item_necessario
     
     @item_necessario.setter
-    def __item_necessario(self, __item_necessario):
-        if isinstance(__item_necessario, (str)):
-                self.__recompensa = __item_necessario.strip().title()    
+    def item_necessario(self, item_necessario):
+        if isinstance(item_necessario, (str)):
+                self.__item_necessario = item_necessario.strip().title()    
         else: 
             raise ValueError("Deve ser um valor do tipo string")
 
