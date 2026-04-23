@@ -1,4 +1,7 @@
 from enum import Enum
+from abc import ABC
+
+
 class StatusMissao(Enum):
     PENDENTE = "PENDENTE"
     EM_ANDAMENTO = "EM ANDAMENTO"
@@ -7,7 +10,7 @@ class StatusMissao(Enum):
 
 
 
-class Missao:
+class Missao(ABC):
     def __init__(self, nome, descricao, recompensa, status):
 
         self.__nome = nome
