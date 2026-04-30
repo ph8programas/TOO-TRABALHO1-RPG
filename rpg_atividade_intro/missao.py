@@ -137,15 +137,15 @@ class Missao(ABC):
 class MissaoCombate(Missao):
     def __init__(self, nome, descricao, recompensa, inimigos_a_derrotar: int, inimigo: str, status):
         super().__init__(nome, descricao, recompensa, status)
-        self.inimigos_a_derrotar = inimigos_a_derrotar
-        self.inimigo = inimigo 
+        self.__inimigos_a_derrotar = inimigos_a_derrotar
+        self.__inimigo = inimigo 
 
     @property
-    def inimigos_a_derrotar(self):
+    def valor_objetivo(self):
         return self.__inimigos_a_derrotar
     
-    @inimigos_a_derrotar.setter
-    def inimigos_a_derrotar(self, valor):
+    @valor_objetivo.setter
+    def valor_objetivo(self, valor):
         if not isinstance(valor, int):
             raise ValueError("Deve ser um valor numérico")
         if valor < 1:
@@ -166,20 +166,20 @@ class MissaoCombate(Missao):
     def exibir_informacoes(self):
         super().exibir_informacoes()
         print(f"Inimigo: {self.inimigo}")
-        print(f"Quantidade a derrotar: {self.inimigos_a_derrotar}")
+        print(f"Quantidade a derrotar: {self.__inimigos_a_derrotar}")
 
 class MissaoColeta(Missao):
     def __init__(self, nome, descricao, recompensa, item_necessario:str, quantidade_item : int, status):
         super().__init__(nome, descricao, recompensa, status)
-        self.item_necessario = item_necessario
-        self.quantidade_item = quantidade_item
+        self.__item_necessario = item_necessario
+        self.__quantidade_item = quantidade_item
 
     @property
-    def quantidade_item(self):
+    def valor_objetivo(self):
         return self.__quantidade_item
     
-    @quantidade_item.setter
-    def quantidade_item(self, quantidade_item):
+    @valor_objetivo.setter
+    def valor_objetivo(self, quantidade_item):
         if not isinstance(quantidade_item, (int)):
             raise ValueError("Deve ser um valor numérico")
         if quantidade_item < 1:
@@ -224,11 +224,11 @@ class MissaoExploracao(Missao):
 
     # Propriedade: distancia
     @property
-    def distancia(self):
+    def valor_objetivo(self):
         return self.__distancia
     
-    @distancia.setter
-    def distancia(self, distancia):
+    @valor_objetivo.setter
+    def valor_objetivo(self, distancia):
         if not isinstance(distancia, (int, float)):
             raise ValueError("A distância deve ser um valor numérico")
         if distancia < 0:
